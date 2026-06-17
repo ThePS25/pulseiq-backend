@@ -36,13 +36,36 @@ See `.env.example` for all required variables.
 
 ## Deployment (Render)
 
-Use `render.yaml` or create a Web Service with:
+### If deploying the `pulseiq-backend` repo directly
 
-- Build: `npm install && npm run build`
-- Start: `npm start`
-- Add Chrome/Chromium for Lighthouse (Puppeteer bundles Chromium)
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | *(leave empty)* |
+| **Build Command** | `npm install --include=dev && npm run build` |
+| **Start Command** | `npm start` |
 
-## Notes
+### If deploying from the parent `PulseIQ` monorepo
 
-- Lighthouse requires Chrome/Chromium available on the server
-- MongoDB Atlas connection string required for production
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | `pulseiq-backend` |
+| **Build Command** | `npm install --include=dev && npm run build` |
+| **Start Command** | `npm start` |
+
+### Why `dist/index.js` was missing
+
+Render sets `NODE_ENV=production`, which skips `devDependencies` during install. TypeScript was in devDependencies, so `tsc` never ran and `dist/` was never created. TypeScript is now a production dependency, and the build command uses `--include=dev` as a safeguard.
+
+### Environment
+
+Set all variables from `.env.example` in the Render dashboard.
+
+### Puppeteer / Lighthouse on Render
+
+Add these environment variables if Lighthouse fails:
+
+```
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
+```
+
+Consider a Render instance with at least 2 GB RAM for Lighthouse scans.

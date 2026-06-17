@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch server/index.ts",
-    "build": "tsc",
+    "build": "tsc && node -e \"require('fs').accessSync('dist/index.js')\"",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit"
   },
@@ -29,7 +29,8 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.2.0"
+    "puppeteer": "^24.2.0",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -40,7 +41,9 @@
     "@types/node": "^22.10.5",
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "tsx": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

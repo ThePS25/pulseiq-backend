@@ -1,8 +1,8 @@
 services:
   - type: web
     name: pulseiq-api
-    env: node
-    buildCommand: npm install && npm run build
+    runtime: node
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
